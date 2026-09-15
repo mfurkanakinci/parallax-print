@@ -1,0 +1,888 @@
+/* Local room-photo calibration UI.  It is deliberately separate from the
+ * renderer and the production output surfaces: a photo is a review aid, not
+ * another geometry or export source of truth. */
+
+.editor-shell .photo-workflow-body {
+  min-width: 0;
+}
+
+.editor-shell .photo-intro,
+.editor-shell .photo-measurement-reminder,
+.editor-shell .photo-occlusion-note,
+.editor-shell .photo-review-note {
+  margin: 0 0 16px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.editor-shell .photo-inactive-floor-note {
+  display: grid;
+  gap: 4px;
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--warning);
+  background: #fbf6ea;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.editor-shell .photo-inactive-floor-note strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.editor-shell .photo-inactive-floor-note .button-quiet {
+  width: max-content;
+  min-height: 40px;
+  margin-top: 4px;
+  padding-inline: 10px;
+  font-size: 12px;
+}
+
+.editor-shell .photo-open-workspace {
+  min-height: 44px;
+  margin: 4px 0 16px;
+  padding-inline: 12px;
+}
+
+.editor-shell .photo-calibration-dialog {
+  width: min(1080px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100vh - 32px);
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--petrol);
+  border-radius: 6px;
+  background: var(--paper-bright);
+  color: var(--ink);
+  box-shadow: 0 24px 80px color-mix(in srgb, var(--petrol) 22%, transparent);
+}
+
+.editor-shell .photo-calibration-dialog::backdrop {
+  background: color-mix(in srgb, var(--petrol) 54%, transparent);
+}
+
+.editor-shell .photo-dialog-shell {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 32px);
+  min-height: 0;
+}
+
+.editor-shell .photo-dialog-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex: none;
+  gap: 24px;
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid var(--border-quiet);
+  background: var(--paper-bright);
+}
+
+.editor-shell .photo-dialog-eyebrow {
+  margin: 0 0 4px;
+  color: var(--petrol);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.editor-shell .photo-dialog-heading h3 {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.editor-shell .photo-dialog-heading h3:focus-visible {
+  outline: 2px solid var(--petrol);
+  outline-offset: 3px;
+}
+
+.editor-shell .photo-dialog-heading p:last-child {
+  max-width: 66ch;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.editor-shell .photo-dialog-close {
+  flex: none;
+  min-height: 44px;
+  padding-inline: 12px;
+}
+
+.editor-shell .photo-dialog-body {
+  min-width: 0;
+  min-height: 0;
+  padding: 20px 28px 28px;
+  overflow: auto;
+}
+
+.editor-shell .photo-dialog-body .photo-plane-tabs {
+  margin-top: 0;
+}
+
+.editor-shell .photo-plane-instructions {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.editor-shell .photo-add-point {
+  margin: 0 0 10px;
+}
+
+.editor-shell .photo-dialog-body .photo-marking-canvas {
+  --photo-stage-max-height: min(62vh, 680px);
+  width: min(100%, calc(var(--photo-stage-max-height) * var(--photo-aspect)));
+  min-height: 0;
+  max-height: none;
+  margin-inline: auto;
+}
+
+.editor-shell .photo-readonly-note {
+  margin: 12px 0 0;
+  color: var(--warning);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.editor-shell .photo-asset-row {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  align-items: center;
+  min-width: 0;
+  gap: 12px;
+  margin: 20px 0 16px;
+  padding: 0 0 16px;
+  border-bottom: 1px solid var(--border-quiet);
+}
+
+.editor-shell .photo-asset-row > img,
+.editor-shell .photo-asset-placeholder {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  background: var(--paper-deep);
+  color: var(--ink-soft);
+}
+
+.editor-shell .photo-asset-meta {
+  display: block;
+  min-width: 0;
+}
+
+.editor-shell .photo-asset-meta strong,
+.editor-shell .photo-asset-meta span {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.editor-shell .photo-asset-meta strong {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.editor-shell .photo-asset-meta span {
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.editor-shell .photo-asset-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px 8px;
+}
+
+.editor-shell .photo-asset-actions .button-quiet,
+.editor-shell .photo-asset-actions .button-link {
+  min-height: 40px;
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+.editor-shell .photo-status {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-quiet);
+  background: var(--paper-deep);
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.editor-shell .photo-status strong {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.editor-shell .photo-status--draft {
+  border-color: var(--warning);
+  background: #fbf6ea;
+}
+
+.editor-shell .photo-status--stale {
+  border-color: var(--error);
+  background: #fcf0ed;
+}
+
+.editor-shell .photo-status--current {
+  border-color: var(--success);
+  background: #edf6f1;
+}
+
+.editor-shell .photo-status--draft strong,
+.editor-shell .photo-status--stale strong {
+  color: var(--warning);
+}
+
+.editor-shell .photo-status--stale strong {
+  color: var(--error);
+}
+
+.editor-shell .photo-status--current strong {
+  color: var(--success);
+}
+
+.editor-shell .photo-plane-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  min-width: 0;
+  margin: 20px 0 12px;
+  gap: 4px;
+}
+
+.editor-shell .photo-plane-tab {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  min-height: 52px;
+  padding: 7px 9px;
+  border: 1px solid var(--border-quiet);
+  border-radius: var(--control-radius);
+  background: var(--paper-bright);
+  color: var(--ink-soft);
+  text-align: left;
+}
+
+.editor-shell .photo-plane-tab strong,
+.editor-shell .photo-plane-tab span {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.editor-shell .photo-plane-tab strong {
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.editor-shell .photo-plane-tab span {
+  color: var(--ink-soft);
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.editor-shell .photo-plane-tab.is-selected {
+  border-color: var(--petrol);
+  background: var(--petrol-soft);
+  color: var(--petrol);
+}
+
+.editor-shell .photo-plane-tab.is-selected strong {
+  color: var(--petrol);
+}
+
+.editor-shell .photo-marking-canvas {
+  position: relative;
+  width: 100%;
+  min-height: 180px;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  background: var(--paper-deep);
+  isolation: isolate;
+  touch-action: none;
+}
+
+.editor-shell .photo-marking-canvas > img,
+.editor-shell .photo-marking-canvas > svg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.editor-shell .photo-marking-canvas > img {
+  z-index: 0;
+  object-fit: fill;
+  user-select: none;
+}
+
+.editor-shell .photo-marking-canvas > svg {
+  z-index: 1;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.editor-shell .photo-plane-line {
+  fill: color-mix(in srgb, var(--accent) 9%, transparent);
+  stroke: var(--accent);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.editor-shell .photo-marking-canvas--B .photo-plane-line {
+  fill: color-mix(in srgb, var(--petrol) 9%, transparent);
+  stroke: var(--petrol);
+}
+
+.editor-shell .photo-marking-canvas--C .photo-plane-line {
+  fill: color-mix(in srgb, var(--warning) 9%, transparent);
+  stroke: var(--warning);
+}
+
+.editor-shell .photo-point {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: var(--paper-bright);
+  color: var(--accent-dark);
+  font-size: 13px;
+  font-weight: 600;
+  transform: translate(-50%, -50%);
+  touch-action: none;
+}
+
+.editor-shell .photo-point:hover:not([disabled]),
+.editor-shell .photo-point:focus-visible {
+  border-color: var(--petrol);
+  background: var(--petrol-soft);
+  color: var(--petrol);
+}
+
+.editor-shell .photo-missing-image {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  color: var(--error);
+  text-align: center;
+}
+
+.editor-shell .photo-marking-hint {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  left: 8px;
+  z-index: 3;
+  padding: 6px 8px;
+  background: color-mix(in srgb, var(--paper-bright) 92%, transparent);
+  color: var(--ink-soft);
+  font-size: 11px;
+  line-height: 16px;
+  pointer-events: none;
+}
+
+.editor-shell .photo-point-fields {
+  display: grid;
+  min-width: 0;
+  margin: 16px 0 0;
+  gap: 12px;
+}
+
+.editor-shell .photo-point-fields fieldset,
+.editor-shell .photo-occlusion-row {
+  min-width: 0;
+  margin: 0;
+  padding: 10px 0 0;
+  border: 0;
+  border-top: 1px solid var(--border-quiet);
+}
+
+.editor-shell .photo-point-fields legend,
+.editor-shell .photo-occlusion-row legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin: 0 0 8px;
+  padding: 0;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.editor-shell .photo-point-index {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  color: var(--accent-dark);
+  font-size: 11px;
+}
+
+.editor-shell .photo-normalized-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-width: 0;
+  gap: 10px 12px;
+}
+
+.editor-shell .photo-normalized-grid > label,
+.editor-shell .photo-normalized-grid > .field {
+  min-width: 0;
+  color: var(--ink-soft);
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.editor-shell .photo-normalized-grid > .field {
+  margin-bottom: 0;
+}
+
+.editor-shell .photo-normalized-grid .field-label {
+  margin-bottom: 4px;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.editor-shell .photo-normalized-grid .field-input {
+  min-height: 40px;
+  height: 40px;
+  padding: 6px 8px;
+  font-size: 14px;
+}
+
+.editor-shell .photo-normalized-grid input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 40px;
+  margin-top: 4px;
+  padding: 6px 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--control-radius);
+  background: var(--paper-bright);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.editor-shell .photo-normalized-grid input:focus-visible {
+  outline: 2px solid var(--petrol);
+  outline-offset: 1px;
+}
+
+.editor-shell .photo-marking-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 0;
+}
+
+.editor-shell .photo-marking-actions button {
+  min-height: 44px;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.editor-shell .photo-review {
+  margin: 24px 0 0;
+  padding: 16px;
+  border: 1px solid var(--petrol);
+  background: var(--petrol-soft);
+}
+
+.editor-shell .photo-review-heading,
+.editor-shell .photo-subsection-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-width: 0;
+  gap: 12px;
+}
+
+.editor-shell .photo-review h4,
+.editor-shell .photo-subsection-heading h4 {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.editor-shell .photo-review-heading p,
+.editor-shell .photo-subsection-heading p {
+  margin: 0 0 12px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.editor-shell .photo-review-badge {
+  flex: none;
+  padding: 3px 6px;
+  border: 1px solid var(--petrol);
+  color: var(--petrol);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.editor-shell .photo-grid-canvas {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  background: var(--paper-bright);
+}
+
+.editor-shell .photo-grid-canvas > img,
+.editor-shell .photo-grid-canvas > svg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.editor-shell .photo-grid-canvas > img {
+  object-fit: fill;
+}
+
+.editor-shell .photo-grid-canvas > svg {
+  overflow: visible;
+  pointer-events: none;
+}
+
+.editor-shell .photo-grid-surface polyline {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+}
+
+.editor-shell .photo-grid-surface--B polyline {
+  stroke: var(--petrol);
+}
+
+.editor-shell .photo-grid-surface--C polyline {
+  stroke: var(--warning);
+}
+
+.editor-shell .photo-grid-outline {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.editor-shell .photo-grid-surface--B .photo-grid-outline {
+  stroke: var(--petrol);
+}
+
+.editor-shell .photo-grid-surface--C .photo-grid-outline {
+  stroke: var(--warning);
+}
+
+.editor-shell .photo-grid-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 2px 5px;
+  border-radius: 2px;
+  background: var(--paper-bright);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  pointer-events: none;
+}
+
+.editor-shell .photo-grid-legend {
+  display: grid;
+  list-style: none;
+  margin: 12px 0;
+  padding: 0;
+  gap: 4px;
+}
+
+.editor-shell .photo-grid-legend li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--ink-soft);
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.editor-shell .photo-grid-legend strong {
+  color: var(--ink);
+}
+
+.editor-shell .photo-confirm-row {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  gap: 8px;
+  margin: 8px 0;
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.editor-shell .photo-review .button-primary {
+  min-height: 44px;
+  margin-top: 4px;
+  padding-inline: 12px;
+}
+
+.editor-shell .photo-occlusions {
+  margin: 24px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-quiet);
+}
+
+.editor-shell .photo-occlusion-row {
+  margin-top: 12px;
+  padding-top: 12px;
+}
+
+.editor-shell .photo-occlusion-row .button-link {
+  min-height: 40px;
+  padding: 6px 0;
+  font-size: 12px;
+}
+
+/* Photo mode deliberately keeps the existing WebGL tree mounted underneath;
+ * only its presentation and pointer surface are hidden. */
+.editor-shell .stage-spatial-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.editor-shell .stage-spatial-layer--hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.editor-shell .stage-spatial-layer > .spatial-viewport {
+  width: 100%;
+  height: 100%;
+}
+
+.editor-shell .photo-preview {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--paper-deep);
+}
+
+.editor-shell .photo-preview-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: contain;
+}
+
+.editor-shell .photo-preview-chrome {
+  position: absolute;
+  top: 58px;
+  right: 18px;
+  left: 18px;
+  z-index: 3;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  min-width: 0;
+  gap: 4px 8px;
+  padding: 8px 10px;
+  background: color-mix(in srgb, var(--paper-bright) 94%, transparent);
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.editor-shell .photo-preview-chrome strong {
+  color: var(--ink);
+}
+
+.editor-shell .photo-preview-chrome > span {
+  max-width: 100%;
+}
+
+.editor-shell .photo-preview-chrome .photo-preview-error {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  color: var(--error);
+}
+
+.editor-shell .photo-preview-chrome .button-quiet {
+  min-height: 36px;
+  padding: 4px 9px;
+  font-size: 12px;
+}
+
+.editor-shell .studio-stage:has(.photo-preview) > .surface-legend,
+.editor-shell .studio-stage:has(.photo-preview) .stage-diagnostics-toggle {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .editor-shell .photo-calibration-dialog {
+    width: calc(100vw - 16px);
+    max-height: calc(100vh - 16px);
+  }
+
+  .editor-shell .photo-dialog-shell {
+    max-height: calc(100vh - 16px);
+  }
+
+  .editor-shell .photo-dialog-heading {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .editor-shell .photo-dialog-heading h3 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .editor-shell .photo-dialog-heading p:last-child {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .editor-shell .photo-dialog-close {
+    width: 44px;
+    max-width: 44px;
+    overflow: hidden;
+    padding: 0;
+    font-size: 0;
+  }
+
+  .editor-shell .photo-dialog-close::before {
+    content: '×';
+    color: var(--ink);
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .editor-shell .photo-dialog-body {
+    padding: 16px;
+  }
+
+  .editor-shell .photo-dialog-body .photo-marking-canvas {
+    --photo-stage-max-height: min(55vh, 440px);
+    min-height: 0;
+    max-height: none;
+  }
+
+  .editor-shell .photo-asset-row {
+    grid-template-columns: 48px minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .editor-shell .photo-asset-row > img,
+  .editor-shell .photo-asset-placeholder {
+    width: 48px;
+    height: 48px;
+  }
+
+  .editor-shell .photo-asset-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+  }
+
+  .editor-shell .photo-plane-tabs {
+    gap: 3px;
+  }
+
+  .editor-shell .photo-plane-tab {
+    padding-inline: 7px;
+  }
+
+  .editor-shell .photo-review {
+    padding: 12px;
+  }
+
+  .editor-shell .photo-preview-chrome {
+    top: 52px;
+    right: 10px;
+    left: 10px;
+  }
+}
+
+@media (max-width: 340px) {
+  .editor-shell .photo-normalized-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .editor-shell .photo-plane-tabs {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editor-shell .photo-point,
+  .editor-shell .photo-preview,
+  .editor-shell .photo-grid-canvas {
+    transition: none;
+  }
+}

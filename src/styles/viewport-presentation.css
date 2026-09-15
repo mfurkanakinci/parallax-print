@@ -1,0 +1,195 @@
+/*
+ * M3 viewport presentation. Keep this file scoped to the live preview and
+ * its supplementary flat-piece/overlay surfaces so the shell owner can evolve
+ * the editor layout without reintroducing the old graph-paper frame.
+ */
+
+.spatial-viewport {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid var(--border-quiet, #d4dcd8);
+  background: var(--paper, #f5f6f5);
+  touch-action: none;
+}
+
+/* The stage has one real boundary. The former inset rule/corner marks made a
+   second registration frame and competed with the live architectural proof. */
+.spatial-viewport::before,
+.spatial-viewport::after {
+  display: none !important;
+  content: none;
+}
+
+.spatial-viewport canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.spatial-viewport[hidden] {
+  display: none !important;
+}
+
+/* Direct artwork manipulation is pointer-transparent except for its explicit
+   hit regions. The numeric fields remain the keyboard path. */
+.artwork-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+  user-select: none;
+  touch-action: none;
+}
+
+.artwork-hit {
+  pointer-events: all;
+  touch-action: none;
+}
+
+.artwork-ghost {
+  transition: opacity var(--duration-base, 160ms) var(--ease-standard, ease);
+}
+
+.artwork-frame-outline,
+.artwork-rotate-rule {
+  stroke: var(--accent, #bb432c);
+}
+
+.artwork-frame-outline {
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+}
+
+.artwork-corner-mark,
+.artwork-rotate-mark {
+  fill: var(--paper-bright, #fff);
+  stroke: var(--accent, #bb432c);
+  stroke-width: 1.5;
+}
+
+.artwork-rotate-rule {
+  stroke-width: 1;
+}
+
+.artwork-rotate-readout {
+  fill: var(--ink, #202724);
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* In the editor the mode strip is a solid tool surface. Keep the hero's
+   inverse treatment owned by its existing public-route rules. */
+.studio-stage > .mode-switch {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-color: var(--border-quiet, #d4dcd8);
+  background: var(--paper-bright, #fff);
+}
+
+.studio-stage > .mode-switch .mode-button {
+  min-height: var(--control-height, 44px);
+  border-radius: var(--control-radius, 4px);
+  color: var(--ink-soft, #53605b);
+}
+
+.studio-stage > .mode-switch .mode-button[aria-pressed='true'] {
+  background: var(--petrol, #163f45);
+  color: var(--paper-bright, #fff);
+  box-shadow: none;
+}
+
+.studio-stage > .mode-switch .mode-button[aria-pressed='true'] .icon {
+  color: currentColor;
+}
+
+.studio-stage > .mode-switch .mode-button:focus-visible {
+  outline: 2px solid var(--accent, #bb432c);
+  outline-offset: 2px;
+}
+
+/* The desktop strip is a stage control, not inspector content. Reserve its
+   footprint inside the stage so it cannot obscure the floor tip or artwork. */
+@media (min-width: 768px) {
+  .studio-stage > .mode-switch {
+    position: absolute;
+    left: var(--space-16, 16px);
+    bottom: var(--space-16, 16px);
+    z-index: 4;
+  }
+
+  .studio-stage > .stage-preview {
+    padding-bottom: 68px;
+  }
+}
+
+/* On narrow screens the preview is followed by one full-width mode control;
+   collapsed summaries remain before it and preserve their state text. */
+@media (max-width: 767px) {
+  .studio-stage > .stage-preview,
+  .studio-stage > .stage-summary {
+    order: 1;
+  }
+
+  .studio-stage > .mode-switch {
+    order: 2;
+    width: 100%;
+    margin-top: var(--space-8, 8px);
+  }
+
+  .studio-stage > .mode-switch .mode-button {
+    justify-content: center;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .studio-stage > .surface-legend {
+    order: 3;
+  }
+}
+
+.viewport-fallback {
+  min-width: 0;
+  min-height: 0;
+  background: var(--paper, #f5f6f5);
+  color: var(--ink-soft, #53605b);
+}
+
+.flat-pieces {
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  scrollbar-gutter: stable;
+}
+
+.piece-stage {
+  overflow: hidden;
+  border-color: var(--border-quiet, #d4dcd8);
+  background: var(--paper-bright, #fff);
+}
+
+.piece-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.piece-placeholder {
+  min-height: 120px;
+  background: var(--paper-bright, #fff);
+  color: var(--ink-soft, #53605b);
+}
+
+.piece-footprint {
+  stroke: var(--accent, #bb432c);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .artwork-ghost {
+    transition: none;
+  }
+}

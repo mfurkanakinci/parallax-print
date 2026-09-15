@@ -1,0 +1,25 @@
+Parallax Print — bundled sample artwork credits
+=================================================
+
+sample-wave.jpg
+  Katsushika Hokusai — Under the Wave off Kanagawa (The Great Wave), 1830/33
+  Source: The Metropolitan Museum of Art (accession JP1847), via Wikimedia Commons
+  License: public domain
+
+sample-bedroom.jpg
+  Vincent van Gogh — The Bedroom, 1889
+  Source: Art Institute of Chicago (accession 1926.417), via Wikimedia Commons
+  License: public domain
+
+sample-jatte.jpg
+  Georges Seurat — A Sunday on La Grande Jatte — 1884, 1884/86
+  Source: Art Institute of Chicago, via Google Art Project / Wikimedia Commons
+  License: public domain
+
+corner-route.png
+  Parallax Print — generated wayfinding sample artwork
+  License: CC0 (public domain dedication)
+
+corner-sun.png
+  Parallax Print — generated eclipse sample artwork
+  License: CC0 (public domain dedication)

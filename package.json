@@ -1,0 +1,40 @@
+{
+  "name": "parallax-print",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A browser-local editor for printable perspective illusions across walls and a floor.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mfurkanakinci/parallax-print.git"
+  },
+  "type": "module",
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --pretty false"
+  },
+  "dependencies": {
+    "@fontsource/instrument-sans": "5.3.0",
+    "@pdf-lib/fontkit": "1.1.1",
+    "fflate": "0.8.3",
+    "idb": "8.0.3",
+    "pdf-lib": "1.17.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "three": "0.180.0",
+    "zod": "4.5.4",
+    "zustand": "5.0.15"
+  },
+  "devDependencies": {
+    "@types/node": "26.4.1",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
+    "@types/three": "0.180.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "typescript": "6.0.3",
+    "vite": "8.2.2"
+  }
+}

@@ -1,0 +1,8 @@
+Rune Icons
+https://github.com/Nexvyn/runeicons
+Copyright 2026 Runeicons
+Licensed under the Apache License, Version 2.0.
+
+The SVG files in this directory are unmodified normal-style Rune Icons copied
+from commit f649e467d1bc9f272aae3f8daa329d4c924e7340. Parallax Print renders them as
+CSS masks so interface color can be inherited without modifying the source SVGs.

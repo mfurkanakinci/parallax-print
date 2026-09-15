@@ -1,0 +1,57 @@
+/* Canonical visual tokens — Paper Exhibition redesign.
+   Browser UI only; do not import into exports. */
+:root {
+  /* Exhibition field */
+  --petrol: #163f45;
+  --petrol-dark: #0e3035;
+  --petrol-soft: #e9f0ee;
+
+  /* Paper system */
+  --paper: #f5f6f5;
+  --paper-deep: #eef1ef;
+  --paper-bright: #ffffff;
+  --surface-raised: #ffffff;
+
+  /* Ink */
+  --ink: #202724;
+  --ink-soft: #53605b;
+  --ink-faint: #5b6762;
+
+  /* Registration accent (artwork handles, measurement marks) */
+  --accent: #bb432c;
+  --accent-dark: #9d3223;
+  --accent-wash: #f0d8ce;
+
+  /* Semantic */
+  --success: #2f7259;
+  --warning: #93631f;
+  --error: #9d3223;
+
+  /* Rules */
+  --border-quiet: #d4dcd8;
+  --border-strong: #9ba9a4;
+
+  /* Typography */
+  --font-body: 'Instrument Sans', system-ui, sans-serif;
+  --font-display: 'Bodoni Moda', Didot, Georgia, serif;
+
+  /* Motion */
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --ease-standard: cubic-bezier(.2, .8, .2, 1);
+  --duration-fast: 120ms;
+  --duration-base: 160ms;
+  --duration-menu: 180ms;
+
+  /* Spacing — 4px unit */
+  --space-4: 4px; --space-8: 8px; --space-12: 12px; --space-16: 16px;
+  --space-24: 24px; --space-32: 32px; --space-48: 48px; --space-64: 64px;
+  --space-96: 96px;
+
+  /* Control shapes */
+  --control-height: 44px;
+  --control-radius: 4px;
+  --toolbar-radius: 6px;
+  --border-width: 1px;
+  --focus-width: 2px;
+  --focus-offset: 2px;
+}

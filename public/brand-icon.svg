@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-labelledby="title">
+  <title id="title">Parallax Print</title>
+  <rect width="240" height="240" fill="#f5f6f5"/>
+  <!-- Existing ParallaxMark paths, enlarged without changing the mark. -->
+  <g transform="translate(24 48) scale(3)" color="#202724">
+    <g fill="#ffffff" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+      <path d="M32 8 9 13v26l23-5Z"/>
+      <path d="M32 8l23 5v26l-23-5Z"/>
+    </g>
+    <g fill="none" stroke="#bb432c" stroke-width="1" stroke-dasharray="2.4 2">
+      <path d="M21 28 33 44"/>
+      <path d="M45 28 33 44"/>
+    </g>
+    <g fill="#f0d8ce" stroke="#bb432c" stroke-width="1.5">
+      <path d="M20.5 16.2 32 14.3v13.8L20.5 27Z"/>
+      <path d="M32 14.3 45.5 17v10L32 28.1Z"/>
+    </g>
+    <path d="M32 8v26" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <circle cx="33" cy="44" r="2.2" fill="#bb432c"/>
+    <g fill="none" stroke="currentColor" stroke-width="1" opacity="0.55">
+      <path d="M4 1v6M1 4h6"/>
+      <path d="M60 1v6M57 4h6"/>
+      <path d="M4 41v6M1 44h6"/>
+      <path d="M60 41v6M57 44h6"/>
+    </g>
+  </g>
+</svg>

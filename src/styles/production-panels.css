@@ -1,0 +1,885 @@
+/*
+ * M4 production surfaces.  The legacy inspector rules remain the baseline
+ * for the other tasks; this file is deliberately route/component scoped so
+ * Check, Print and the field guide can use the Paper Exhibition hierarchy
+ * without changing shared geometry, controls or export semantics.
+ */
+
+.m4-production {
+  --m4-soft-warning: #fbf6ea;
+  --m4-soft-error: #fcf0ed;
+  --m4-soft-success: #edf6f1;
+  --m4-soft-info: #e9f0ee;
+  font-size: 14px;
+}
+
+.m4-production > h2 {
+  margin: 0 0 4px;
+  padding: 0;
+  border: 0;
+  font-family: var(--font-body);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: 0;
+}
+
+.m4-panel-intro {
+  margin: 0 0 20px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.m4-production h3 {
+  margin: 24px 0 12px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.m4-production .field-group {
+  margin-top: 24px;
+}
+
+.m4-production .field-group legend {
+  padding: 0 0 8px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border-quiet);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.m4-production .field label,
+.m4-production .field > label {
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.m4-production :is(input, select, button):disabled {
+  opacity: 1;
+}
+
+.m4-production :is(input[type='number'], input[type='text'], select):disabled {
+  color: var(--ink-faint);
+  background: #e5e9e6;
+}
+
+.m4-check-ledger {
+  margin: 20px 0 24px;
+  border-top: 1px solid var(--ink);
+}
+
+.m4-check-ledger > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 46px;
+  border-bottom: 1px solid var(--border-quiet);
+}
+
+.m4-check-ledger dt {
+  color: var(--ink-soft);
+}
+
+.m4-check-ledger dd {
+  margin: 0;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  text-align: right;
+}
+
+.m4-check-ledger dd[data-tone='success'] {
+  color: var(--success);
+}
+
+.m4-check-ledger dd[data-tone='warning'] {
+  color: var(--warning);
+}
+
+.m4-check-ledger dd[data-tone='error'] {
+  color: var(--error);
+}
+
+.m4-readiness {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  padding: 16px;
+  margin: 20px 0 0;
+  border: 1px solid var(--success);
+  background: var(--m4-soft-success);
+}
+
+.m4-readiness--warning {
+  border-color: var(--warning);
+  background: var(--m4-soft-warning);
+}
+
+.m4-readiness--blocked {
+  border-color: var(--error);
+  background: var(--m4-soft-error);
+}
+
+.m4-readiness-symbol {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--success);
+  color: var(--paper-bright);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.m4-readiness--warning .m4-readiness-symbol {
+  background: var(--warning);
+}
+
+.m4-readiness--blocked .m4-readiness-symbol {
+  background: var(--error);
+}
+
+.m4-readiness-copy strong,
+.m4-readiness-copy span {
+  display: block;
+}
+
+.m4-readiness-copy strong {
+  margin-bottom: 3px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.m4-readiness-copy span {
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.m4-physical-note {
+  margin: 20px 0;
+  padding: 12px;
+  border: 1px solid var(--warning);
+  background: var(--m4-soft-warning);
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.m4-physical-note strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 14px;
+}
+
+.m4-production .issue-list {
+  margin: 0 0 16px;
+}
+
+.m4-production .issue {
+  margin-bottom: 8px;
+  border: 1px solid var(--border-quiet);
+  border-left-width: 1px;
+  background: var(--paper-bright);
+}
+
+.m4-production .issue-blocker {
+  border-color: var(--error);
+  background: var(--m4-soft-error);
+}
+
+.m4-production .issue-warning {
+  border-color: var(--warning);
+  background: var(--m4-soft-warning);
+}
+
+.m4-production .issue-message {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.m4-production .issue-remedy {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.m4-production .issue-fix {
+  min-height: 44px;
+}
+
+.m4-production .disclosure {
+  margin: 8px 0;
+}
+
+.m4-production .disclosure-summary {
+  min-height: 50px;
+  padding-inline: 0;
+}
+
+.m4-production .disclosure-title {
+  font-size: 14px;
+}
+
+.m4-production .disclosure-desc {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.m4-production .disclosure-body {
+  padding-inline: 0;
+}
+
+.m4-print-receipt-slot {
+  min-height: 0;
+}
+
+.m4-print-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 0 0 24px;
+  padding: 16px;
+  border: 1px solid var(--petrol);
+  background: var(--m4-soft-info);
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  line-height: 18px;
+}
+
+.m4-print-summary strong {
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.m4-print-summary span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.m4-paper-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 12px;
+}
+
+.m4-paper-grid .field:last-child {
+  grid-column: 1;
+}
+
+.m4-print-panel .check-row {
+  border-bottom: 1px solid var(--border-quiet);
+  color: var(--ink);
+}
+
+.m4-print-panel .check-row:last-child {
+  border-bottom: 0;
+}
+
+.m4-print-panel .check-row > input + span {
+  display: contents;
+}
+
+.m4-export-section {
+  margin-top: 24px;
+  padding-top: 0;
+  border-top: 1px solid var(--border-quiet);
+}
+
+.m4-export-section > h3 {
+  margin-top: 20px;
+}
+
+.m4-export-section .export-production {
+  position: static;
+  z-index: auto;
+  margin: 20px 0 0;
+  padding: 0;
+  border-top: 0;
+  background: transparent;
+}
+
+.m4-export-section .export-production .field-group {
+  margin-top: 20px;
+}
+
+.m4-export-section .export-gate-reason {
+  margin: 12px 0;
+  padding: 0 0 0 12px;
+  border-left: 2px solid var(--warning);
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.m4-export-section .export-actions {
+  margin: 12px 0;
+}
+
+.export-receipt {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 20px 0;
+  padding: 16px;
+  border: 1px solid var(--warning);
+  background: var(--m4-soft-warning);
+}
+
+.export-receipt strong {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.export-receipt > span {
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.export-receipt--blocker,
+.export-receipt--error {
+  border-color: var(--error);
+  background: var(--m4-soft-error);
+}
+
+.export-receipt--success {
+  border-color: var(--success);
+  background: var(--m4-soft-success);
+}
+
+.export-receipt--canceled {
+  border-color: var(--border-strong);
+  background: var(--paper-bright);
+}
+
+.export-receipt progress {
+  width: 100%;
+  height: 8px;
+  accent-color: var(--petrol);
+}
+
+.ready-file {
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+
+.m4-export-section .export-technical {
+  margin-top: 20px;
+}
+
+.technical-list {
+  margin: 0;
+  border-top: 1px solid var(--border-quiet);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.technical-list > div {
+  display: grid;
+  grid-template-columns: minmax(100px, 0.6fr) minmax(0, 1.4fr);
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-quiet);
+}
+
+.technical-list dt {
+  color: var(--ink-soft);
+}
+
+.technical-list dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.m4-export-safety-note {
+  margin-top: 20px;
+}
+
+.export-command-fallback {
+  margin: 20px -16px -16px;
+}
+
+.m4-command-dock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 68px;
+  padding: 10px 16px 10px 20px;
+  border-top: 1px solid var(--border-quiet);
+  background: var(--paper-bright);
+}
+
+.m4-command-copy {
+  min-width: 0;
+  max-width: 42ch;
+}
+
+.m4-command-copy strong,
+.m4-command-copy span {
+  display: block;
+}
+
+.m4-command-copy strong {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.m4-command-copy span {
+  overflow-wrap: anywhere;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.m4-command-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.m4-command-actions .button-primary,
+.m4-command-actions .button-quiet {
+  white-space: nowrap;
+}
+
+.m4-command-dock[data-export-state='running'] .button-primary,
+.m4-command-dock[data-export-state='preparing'] .button-primary {
+  min-width: 132px;
+}
+
+/* Field guide ------------------------------------------------------------ */
+
+.m4-field-guide {
+  width: 100%;
+  max-width: none;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0 0 80px;
+  background: #e8ecea;
+}
+
+.m4-guide-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  height: 64px;
+  padding: 0 max(24px, calc((100% - 1120px) / 2));
+  border-bottom: 1px solid var(--border-quiet);
+  background: var(--paper-bright);
+}
+
+.m4-guide-brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.m4-guide-brand:hover {
+  color: var(--petrol);
+}
+
+.m4-guide-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.m4-guide-sheet {
+  width: min(920px, calc(100% - 48px));
+  margin: 48px auto 0;
+  padding: 56px 62px 28px;
+  background: var(--paper-bright);
+  box-shadow: 0 18px 50px rgb(32 39 36 / 9%);
+}
+
+.m4-guide-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 22px;
+  border-bottom: 2px solid var(--petrol);
+}
+
+.m4-guide-kicker {
+  margin: 0 0 4px;
+  color: var(--petrol);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.m4-guide-head h1 {
+  margin: 0;
+  font-size: 34px;
+  line-height: 38px;
+  letter-spacing: -0.02em;
+}
+
+.m4-guide-revision {
+  flex: 0 0 auto;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 18px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.m4-guide-warning {
+  margin: 22px 0 0;
+}
+
+.m4-field-guide .m4-guide-spec {
+  padding: 28px 0 8px;
+}
+
+.m4-guide-spec h2,
+.m4-guide-plan h2 {
+  margin: 0 0 14px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.m4-guide-spec-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  border-top: 1px solid var(--ink);
+}
+
+.m4-guide-spec-grid > div {
+  min-width: 0;
+  padding: 12px 10px 12px 0;
+  border-bottom: 1px solid var(--border-quiet);
+}
+
+.m4-guide-spec-grid dt {
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.m4-guide-spec-grid dd {
+  margin: 2px 0 0;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.m4-field-guide .m4-guide-plan {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: 30px;
+  margin: 28px 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--border-quiet);
+  border-bottom: 1px solid var(--border-quiet);
+}
+
+.m4-guide-plan p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.m4-guide-plan .surface-diagram {
+  max-width: none;
+  margin: 0;
+  background: #f4f6f5;
+}
+
+.m4-guide-plan-list {
+  margin: 16px 0 0;
+  padding-left: 20px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.m4-guide-plan-list li + li {
+  margin-top: 6px;
+}
+
+.m4-guide-procedures {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: guide-procedure;
+}
+
+.m4-guide-step {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) 34px;
+  align-items: start;
+  gap: 16px;
+  min-height: 104px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-quiet);
+  break-inside: avoid;
+  page-break-inside: avoid;
+  counter-increment: guide-procedure;
+}
+
+.m4-guide-step-number {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.m4-guide-step-number::before {
+  content: counter(guide-procedure, decimal-leading-zero);
+}
+
+.m4-guide-step h2 {
+  margin: 0 0 4px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.m4-guide-step-kicker {
+  margin: 0 0 4px;
+  color: var(--petrol);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.m4-guide-step p:not(.m4-guide-step-kicker) {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.m4-guide-step-check {
+  color: var(--border-strong);
+  font-size: 26px;
+  line-height: 20px;
+}
+
+.m4-guide-folio {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 16px;
+  margin-top: 26px;
+  padding-top: 10px;
+  border-top: 1px solid var(--ink);
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.m4-guide-folio span:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.m4-field-guide .print-title {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .m4-production .field-group {
+    margin-top: 20px;
+  }
+
+  .m4-paper-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .m4-paper-grid .field:last-child {
+    grid-column: auto;
+  }
+
+  .m4-command-dock {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  }
+
+  .m4-command-copy {
+    max-width: none;
+  }
+
+  .m4-command-actions {
+    width: 100%;
+  }
+
+  .m4-command-actions > :is(button, a) {
+    flex: 1;
+  }
+
+  .export-command-fallback {
+    margin-inline: -16px;
+  }
+
+  .m4-guide-toolbar {
+    height: 56px;
+    padding-inline: 16px;
+  }
+
+  .m4-guide-brand .brand-words,
+  .m4-guide-brand .brand-sub {
+    display: none;
+  }
+
+  .m4-guide-actions .button-quiet {
+    padding-inline: 10px;
+  }
+
+  .m4-guide-sheet {
+    width: calc(100% - 20px);
+    margin-top: 10px;
+    padding: 32px 20px 22px;
+    box-shadow: none;
+  }
+
+  .m4-guide-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .m4-guide-head h1 {
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  .m4-guide-revision {
+    text-align: left;
+  }
+
+  .m4-guide-spec-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .m4-guide-plan {
+    grid-template-columns: 1fr;
+  }
+
+  .m4-guide-step {
+    grid-template-columns: 34px minmax(0, 1fr) 28px;
+    gap: 10px;
+  }
+
+  .m4-guide-folio {
+    grid-template-columns: 1fr auto;
+  }
+
+  .m4-guide-folio span:nth-child(2) {
+    display: none;
+  }
+}
+
+@media print {
+  @page {
+    margin: 12mm 14mm 8mm;
+  }
+
+  .m4-field-guide {
+    min-height: 0;
+    padding: 0;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .m4-guide-toolbar,
+  .m4-guide-actions,
+  .m4-field-guide .projects-actions {
+    display: none !important;
+  }
+
+  .m4-guide-sheet {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .m4-guide-head {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .m4-guide-warning {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .m4-guide-step,
+  .m4-guide-plan,
+  .m4-guide-spec {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .m4-guide-step h2,
+  .m4-guide-step p,
+  .m4-guide-spec-grid dt,
+  .m4-guide-spec-grid dd,
+  .m4-guide-plan p,
+  .m4-guide-plan-list,
+  .m4-guide-folio,
+  .m4-guide-head h1,
+  .m4-guide-kicker,
+  .m4-guide-revision {
+    color: #000 !important;
+  }
+
+  .m4-guide-plan .surface-diagram {
+    max-width: 100%;
+  }
+
+  .m4-field-guide .print-title {
+    display: block;
+    color: #000;
+    font-size: 11pt;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m4-production *,
+  .m4-field-guide * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
