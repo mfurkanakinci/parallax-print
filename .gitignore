@@ -7,3 +7,18 @@ dist/
 *.local
 *.log
 .npmrc
+
+# Wrangler local state (deploy via local/CI wrangler, config not committed)
+.wrangler/
+.dev.vars
+.dev.vars.*
+
+# Demo/launch media: copied from parallax-press for deploy parity but too
+# large for the repository. Keep the small text assets, drop the binaries.
+public/demo/*.mp4
+public/demo/*.webm
+public/demo/*.gif
+public/demo/*.zip
+public/demo/*.jpg
+public/demo/*.png
+public/demo/gallery/

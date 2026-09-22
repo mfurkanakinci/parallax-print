@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "parallax-print",
+  "main": "cloudflare/worker.ts",
+  "account_id": "05b18e6ee24b29584a8178a2d22a0eaa",
+  "compatibility_date": "2026-09-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/demo/*.mp4", "/demo/*.webm"],
+    // Editor routes live in the URL fragment; missing files should stay 404.
+    "not_found_handling": "none"
+  },
+  "routes": [
+    { "pattern": "parallaxprint.app", "custom_domain": true }
+  ]
+}

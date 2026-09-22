@@ -1,0 +1,39 @@
+Parallax/Print — launch copy
+
+Website: https://parallaxprint.app/
+
+Demo: https://parallaxprint.app/demo/
+
+Name
+Parallax Print
+
+Visual wordmark: Parallax/Print. Use the spoken form “Parallax Print” in narration and listing titles.
+
+Tagline
+Print optical illusions that align from one viewpoint
+
+53 characters.
+
+Description
+Turn a PNG or JPEG into printable pieces that form one image across two walls and an optional floor. Set your corner dimensions and viewing position, adjust the artwork in 3D, then export tiled PDFs and an installation guide. Your artwork stays in your browser. Explore editable examples, or use a reference photo to preview the installation.
+
+342 characters.
+
+Maker introduction
+Hi Product Hunt! 👋
+
+Parallax Print turns a flat image into printable pieces for a physical corner. From one chosen viewing position, the pieces line up as a single image. Move away, and the illusion breaks apart.
+
+You can:
+
+- Set the dimensions and angle of two walls, with an optional floor.
+- Upload a PNG or JPEG and position the artwork in 3D.
+- Orbit the installation, then select “Meet the eye level” to see the image align.
+- Preview it against a reference photo using manually marked surfaces.
+- Export tiled PDFs, calibration sheets, and an installation guide.
+
+Artwork and project processing stay in your browser. Five editable layouts give you a starting point, from a simple right angle to a tight fold or a wall-to-floor wrap.
+
+This first version is a digital alpha. I’d love feedback from artists, designers, educators, and anyone trying a small printed installation. Check your printed scale and measurements before mounting the pieces.
+
+What would you make with it?
